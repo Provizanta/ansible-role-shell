@@ -3,6 +3,8 @@ Shell
 
 Install structured bash configuration into the user home.
 
+Much of the basic configuration was adapted from the default XUbuntu .bashrc, along with minor modifications.
+
 Requirements
 ------------
 
