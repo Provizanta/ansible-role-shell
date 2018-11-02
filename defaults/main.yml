@@ -1,0 +1,20 @@
+---
+
+general:
+  use_color: yes
+  file_behavior: 'merge'
+
+history:
+  settings:
+    control: "ignoreboth"
+    size: 1000
+    filesize: 2000
+
+shopt:
+  histappend: yes
+  checkwinsize: yes
+
+alias:
+  ll: 'ls -alF'
+  la: 'ls -A'
+  l: 'ls -CF'
