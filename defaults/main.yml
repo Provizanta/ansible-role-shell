@@ -5,10 +5,9 @@ general:
   file_behavior: 'merge'
 
 history:
-  settings:
-    control: "ignoreboth"
-    size: 1000
-    filesize: 2000
+  control: "ignoreboth"
+  size: 1000
+  filesize: 2000
 
 shopt:
   histappend: yes

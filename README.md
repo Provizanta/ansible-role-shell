@@ -17,8 +17,7 @@ Role Variables
       use_color: <boolean, indicating whether to use color output>
       file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present> 
 
-    history:
-      settings: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
+    history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
 
     shopt: <key-value pairs of shopt setting and a boolean value indicating whether to set or unset the option>
 
