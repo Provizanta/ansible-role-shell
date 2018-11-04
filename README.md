@@ -5,6 +5,11 @@ Install structured bash configuration into the user home.
 
 Much of the basic configuration was adapted from the default XUbuntu .bashrc, along with minor modifications.
 
+Other improvements were inspired by:
+- [vinioliveira](https://gist.github.com/vinioliveira/909111)
+- [DenisCarriere](https://github.com/DenisCarriere/.bashrc.git)
+- [redguardtoo](https://gist.github.com/redguardtoo/01868d7a13817c9845e8)
+
 Requirements
 ------------
 
@@ -19,9 +24,11 @@ Role Variables
 
     history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
 
-    shopt: <key-value pairs of shopt setting and a boolean value indicating whether to set or unset the option>
+    shopt: <key-value pairs of shopt setting and a boolean value indicating the options's desired status - set or unset>
 
-    alias: <key-value pairs of aliases> 
+    alias: <key-value pairs of aliases>
+
+    functions: <key-value pairs of function group and a boolean value indicating the group's desired presence> 
 
 Dependencies
 ------------
