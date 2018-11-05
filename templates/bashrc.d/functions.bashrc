@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# {{ ansible_managed }}
 
 with_trace() {
     if [ -n "$1" ] ; then

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# {{ ansible_managed }}
 
 {% if general and general['use_color'] %}
 {% if ansible_os_family | lower == 'darwin' %}

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# {{ ansible_managed }}
 
 # color definitions
 COLOR_DEFAULT="\[\033[m\]"

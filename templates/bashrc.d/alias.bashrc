@@ -1,4 +1,7 @@
-{%- if general and general['use_color'] -%}
+#!/usr/bin/env bash
+# {{ ansible_managed }}
+
+{% if general and general['use_color'] %}
 # enable color support of ls and add color aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
