@@ -1,27 +1,28 @@
 ---
-
 general:
   use_color: yes
   file_behavior: 'merge'
 
-history:
-  control: "ignoreboth"
-  size: 1000
-  filesize: 2000
-
-set:
-  noclobber: yes 
-  history: yes
-  notify: yes
-
-shopt:
-  histappend: yes
-  checkwinsize: yes
-
-alias:
-  ll: 'ls -alF'
-  la: 'ls -A'
-  l: 'ls -CF'
-
 functions:
   compression: yes
+
+bash:
+  alias:
+    ll: 'ls -alF'
+    la: 'ls -A'
+    l: 'ls -CF'
+
+  history:
+    control: "ignoreboth"
+    size: 1000
+    filesize: 2000
+
+  set:
+    noclobber: yes 
+    history: yes
+    notify: yes
+
+  shopt:
+    histappend: yes
+    checkwinsize: yes
+

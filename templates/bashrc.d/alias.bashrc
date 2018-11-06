@@ -12,9 +12,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 {% endif %}
 
-{% if alias -%}
+{% if bash['alias'] -%}
 # aliases
-{% for key, value in alias.items() -%}
+{% for key, value in bash['alias'].items() -%}
 {{ "alias %s='%s'\n" | format(key, value) }}
 {%- endfor -%}
 {% endif %}
