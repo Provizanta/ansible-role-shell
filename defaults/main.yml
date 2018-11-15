@@ -7,11 +7,6 @@ functions:
   compression: yes
 
 bash:
-  alias:
-    ll: 'ls -alF'
-    la: 'ls -A'
-    l: 'ls -CF'
-
   history:
     control: "ignoreboth"
     size: 1000
