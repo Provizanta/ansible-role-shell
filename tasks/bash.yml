@@ -1,12 +1,13 @@
 ---
 
 - name: establish depenencies
+  become: yes
   package:
-    name: "{{ item }}"
+    name:
+      - bash
+      - bash-completion
     state: present
-  with_items:
-    - bash
-    - bash-completion
+  tags: install
 
 - name: establish .bashrc.d directory
   file:
@@ -14,35 +15,39 @@
     owner: "{{ ansible_user }}"
     mode: "u=rwx,go="
     state: directory
-
-- block:
-  - name: find existing bashrc.d contents
-    find:
-      path: "{{ bashrc_d_dir }}"
-      pattern: "*.bashrc" 
-    register: existing_bashrc_files
-
-  - name: remove existing bashrc.d contents
-    file:
-      path: "{{ item.path }}"
-      state: absent
-    with_items: "{{ existing_bashrc_files.files }}"
-  when:
-    - general['file_behavior'] == 'replace'
+  tags: configure
 
 - name: establish .bashrc file
   template:
-    src: .bashrc
-    dest: ~/.bashrc
+    src: .bashrc.j2
+    dest: /home/{{ ansible_user}}/.bashrc
     owner: "{{ ansible_user }}"
     mode: "u=rwX,go="
+  tags: configure
+
+- when: general['file_behavior'] == 'replace'
+  block:
+    - name: find existing bashrc.d contents
+      find:
+        path: "{{ bashrc_d_dir }}"
+        pattern: "*.bashrc" 
+      register: existing_bashrc_files
+      tags: configure
+
+    - name: remove existing bashrc.d contents
+      file:
+        path: "{{ item['path'] }}"
+        state: absent
+      loop: "{{ existing_bashrc_files['files'] }}"
+      tags: configure
 
 - name: establish bashrc.d components
   template:
     src: "{{ item }}"
-    dest: "{{ bashrc_d_dir }}/{{ (item | basename | splitext)[0] }}.bashrc"
+    dest: "{{ bashrc_d_dir }}/{{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
     owner: "{{ ansible_user }}"
     mode: "u=rwX,go="
   with_fileglob:
-    - ../templates/bashrc.d/*.bashrc
-    - ../templates/rc.d/*.rc
+    - "{{ role_path }}/templates/bashrc.d/*.bashrc.j2"
+    - "{{ role_path }}/templates/rc.d/*.rc.j2"
+  tags: configure

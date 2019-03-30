@@ -1,10 +1,11 @@
 ---
+
 general:
   use_color: yes
   file_behavior: 'merge'
 
 functions:
-  compression: yes
+  compression: no
 
 bash:
   history:
