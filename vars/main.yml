@@ -1,7 +1,5 @@
 ---
 
-bashrc_d_dir: ~/.bashrc.d/
-
 color_enabled_commands:
   - 'ls'
   - 'dir'

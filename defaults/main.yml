@@ -1,5 +1,7 @@
 ---
 
+bashrc_d_dir: ~/.bashrc.d/
+
 general:
   use_color: yes
   file_behavior: 'merge'
