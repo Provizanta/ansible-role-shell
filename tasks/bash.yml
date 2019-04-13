@@ -1,7 +1,7 @@
 ---
 
 - name: establish depenencies
-  become: yes
+  become: true
   package:
     name:
       - bash
@@ -12,7 +12,6 @@
 - name: establish .bashrc.d directory
   file:
     path: "{{ bashrc_d_dir }}"
-    owner: "{{ ansible_user }}"
     mode: "u=rwx,go="
     state: directory
   tags: configure
@@ -20,32 +19,15 @@
 - name: establish .bashrc file
   template:
     src: .bashrc.j2
-    dest: /home/{{ ansible_user}}/.bashrc
-    owner: "{{ ansible_user }}"
+    dest: ~/.bashrc
     mode: "u=rwX,go="
   tags: configure
-
-- when: general['file_behavior'] == 'replace'
-  block:
-    - name: find existing bashrc.d contents
-      find:
-        path: "{{ bashrc_d_dir }}"
-        pattern: "*.bashrc" 
-      register: existing_bashrc_files
-      tags: configure
-
-    - name: remove existing bashrc.d contents
-      file:
-        path: "{{ item['path'] }}"
-        state: absent
-      loop: "{{ existing_bashrc_files['files'] }}"
-      tags: configure
 
 - name: establish bashrc.d components
   template:
     src: "{{ item }}"
-    dest: "{{ bashrc_d_dir }}/{{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
-    owner: "{{ ansible_user }}"
+    dest: "{{ bashrc_d_dir }}/\
+      {{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
     mode: "u=rwX,go="
   with_fileglob:
     - "{{ role_path }}/templates/bashrc.d/*.bashrc.j2"

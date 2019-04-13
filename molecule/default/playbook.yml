@@ -1,0 +1,31 @@
+---
+
+- name: Converge
+  hosts: all
+  roles:
+    - role: shell
+      vars:
+        bash:
+          bashrc_d_dir: "~/.bashrc.d/"
+          alias:
+            ll: 'ls -alF'
+          history:
+            control: "ignoreboth"
+          shopt:
+            cdspell: true
+          set:
+            pipefail: true
+
+  post_tasks:
+    - name: bashrc.d directory should be present
+      block:
+        - name: check file presence
+          stat:
+            path: "~/.bashrc.d/"
+          register: r
+        - name: evaluate file presence
+          assert:
+            that:
+              - r.stat.isdir is defined
+              - r.stat.isdir
+            fail_msg: bashrc.d directory should be present

@@ -1,26 +1,10 @@
 ---
 
-bashrc_d_dir: ~/.bashrc.d/
+bashrc_d_dir: "~/.bashrc.d/"
 
 general:
-  use_color: yes
+  use_color: true
   file_behavior: 'merge'
 
 functions:
-  compression: no
-
-bash:
-  history:
-    control: "ignoreboth"
-    size: 1000
-    filesize: 2000
-
-  set:
-    noclobber: yes 
-    history: yes
-    notify: yes
-
-  shopt:
-    histappend: yes
-    checkwinsize: yes
-
+  compression: false

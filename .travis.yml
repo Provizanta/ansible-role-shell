@@ -1,0 +1,26 @@
+---
+
+language: python
+python:
+  - 3.6
+services: docker
+
+env:
+  global:
+    - ROLE_NAME: shell
+  matrix:
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: ubuntu1804
+
+install:
+  - pip install molecule docker
+
+before_script:
+  - cd ../
+  - mv Provisioning---Ansible-role-$ROLE_NAME $ROLE_NAME
+  - cd $ROLE_NAME
+
+script:
+  - molecule test
+
+notifications:

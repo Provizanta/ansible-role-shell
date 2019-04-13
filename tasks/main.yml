@@ -2,4 +2,3 @@
 
 - import_tasks: bash.yml
   when: bash is defined
-
