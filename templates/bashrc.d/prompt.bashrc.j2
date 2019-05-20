@@ -69,3 +69,8 @@ xterm*|rxvt*)
     ;;
 esac
 
+# add shell-option to ~/.inputrc to enable case-insensitive tab completion
+if [ ! -e ~/.inputrc ]; then
+    echo 'set completion-ignore-case On' > ~/.inputrc
+fi
+
