@@ -6,7 +6,7 @@
     - role: shell
       vars:
         bash:
-          bashrc_d_dir: "~/.bashrc.d/"
+          rc_d_dir: "~/.bashrc.d/"
           alias:
             ll: 'ls -alF'
           history:

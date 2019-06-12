@@ -9,18 +9,28 @@ env:
   global:
     - ROLE_NAME: shell
   matrix:
-    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: ubuntu1404
     - MOLECULE_DISTRO: ubuntu1804
+    - MOLECULE_DISTRO: centos6
+    - MOLECULE_DISTRO: centos7
+    - MOLECULE_DISTRO: debian8
+    - MOLECULE_DISTRO: debian9
+    - MOLECULE_DISTRO: debian10
+    - MOLECULE_DISTRO: fedora24
+    - MOLECULE_DISTRO: fedora27
+    - MOLECULE_DISTRO: fedora29
+    - MOLECULE_DISTRO: amazonlinux2
 
 install:
   - pip install molecule docker
 
 before_script:
   - cd ../
-  - mv Provisioning---Ansible-role-$ROLE_NAME $ROLE_NAME
+  - mv ansible-role-$ROLE_NAME $ROLE_NAME
   - cd $ROLE_NAME
 
 script:
   - molecule test
 
 notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/?branch=master

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # {{ ansible_managed }}
 
-{% for f in bash['functions'] %}
+{% for f in bash['functions'] | default([]) %}
 {{ f }}
 {% endfor -%}
