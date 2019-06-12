@@ -18,17 +18,22 @@ None
 Role Variables
 --------------
 
-    general:
-      use_color: <boolean, indicating whether to use color output>
-      file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present>
+    bash:
+      rc_d_dir: <string, path to the rc.d dir>
 
-    history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
+      general:
+        use_color: <boolean, indicating whether to use color output>
+        file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present>
 
-    shopt: <key-value pairs of shopt setting and a boolean value indicating the options's desired status - set or unset>
+      history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
 
-    alias: <key-value pairs of aliases>
+      shopt: <key-value pairs of a shell option and a boolean value indicating the options's desired status - set or unset>
 
-    functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
+      set: <key-value pairs of a setting and a boolean value indicating the options's desired status - set or unset>
+
+      alias: <key-value pairs of aliases>
+
+      functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
 Dependencies
 ------------
@@ -42,14 +47,18 @@ Example Playbook
       roles:
         - role: shell
           vars:
-            general:
-              use_color: no
-            history:
-              size: 1500
-            shopt:
-              histappend: yes
-            alias:
-              mkdir: 'mkdir -p'
+            bash:
+              rc_d_dir: ~/.bashrc.d/
+              general:
+                use_color: no
+              history:
+                size: 1500
+              shopt:
+                histappend: yes
+              set:
+                history: yes
+              alias:
+                mkdir: 'mkdir -p'
 
 License
 -------

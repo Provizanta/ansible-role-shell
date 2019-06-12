@@ -9,10 +9,10 @@
     state: present
   tags: install
 
-- name: establish .bashrc.d directory
+- name: establish rc.d directory
   become: false
   file:
-    path: "{{ bashrc_d_dir }}"
+    path: "{{ bash['rc_d_dir'] | default('~/.bashrc.d/') }}"
     mode: "u=rwx,go="
     state: directory
   tags: configure
@@ -25,11 +25,11 @@
     mode: "u=rwX,go="
   tags: configure
 
-- name: establish bashrc.d components
+- name: establish rc.d components
   become: false
   template:
     src: "{{ item }}"
-    dest: "{{ bashrc_d_dir }}/\
+    dest: "{{ bash['rc_d_dir'] | default('~/.bashrc.d/') }}/\
       {{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
     mode: "u=rwX,go="
   with_fileglob:
