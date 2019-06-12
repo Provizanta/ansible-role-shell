@@ -20,7 +20,7 @@ Role Variables
 
     general:
       use_color: <boolean, indicating whether to use color output>
-      file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present> 
+      file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present>
 
     history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
 
@@ -28,7 +28,7 @@ Role Variables
 
     alias: <key-value pairs of aliases>
 
-    functions: <key-value pairs of function group and a boolean value indicating the group's desired presence> 
+    functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
 Dependencies
 ------------
