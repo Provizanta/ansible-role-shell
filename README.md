@@ -37,7 +37,7 @@ Role Variables
 
       functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
-    inputrc: <list of strings, contains the extra lines to be used for the user session on top of the system-wide /etc/inputrc >
+    inputrc: <list of strings, contains the content of .inputrc file replacing the system-wide /etc/inputrc >
 
 Dependencies
 ------------

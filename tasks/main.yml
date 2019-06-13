@@ -3,7 +3,8 @@
 - when: bash is defined
   import_tasks: bash.yml
 
-- when: inputrc is defined
+- name: introduce custom inputrc configuration
+  when: inputrc is defined
   become: false
   template:
     src: .inputrc.j2
