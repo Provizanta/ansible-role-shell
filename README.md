@@ -90,4 +90,4 @@ MIT
 Author Information
 ------------------
 
-Tibor Csoka
+Tibor Csóka
