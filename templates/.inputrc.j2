@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# {{ ansible_managed }}
+
+source /etc/inputrc
+
+{% for i in inputrc | default([]) %}
+{{ i }}
+{% endfor -%}

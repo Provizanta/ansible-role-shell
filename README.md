@@ -37,6 +37,8 @@ Role Variables
 
       functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
+    inputrc: <list of strings, contains the extra lines to be used for the user session on top of the system-wide /etc/inputrc >
+
 Dependencies
 ------------
 
@@ -49,6 +51,8 @@ Example Playbook
       roles:
         - role: shell
           vars:
+            inputrc:
+              - "set completion-ignore-case On"
             bash:
               rc_d_dir: ~/.bashrc.d/
               general:
@@ -61,6 +65,22 @@ Example Playbook
                 history: yes
               alias:
                 mkdir: 'mkdir -p'
+              functions:
+                - |
+                  with_trace() {
+                      if [ -n "$1" ] ; then
+                          local original_xtrace_setting
+                          original_xtrace_setting="$(shopt -po xtrace)"
+
+                          set -x
+                          $1
+                          { STATUS=$?; eval "$original_xtrace_setting"; } 2>/dev/null
+
+                          return $STATUS
+                      else
+                          echo "usage: with_trace '<command>'"
+                      fi
+                  }
 
 License
 -------

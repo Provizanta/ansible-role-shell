@@ -1,4 +1,11 @@
 ---
 
-- import_tasks: bash.yml
-  when: bash is defined
+- when: bash is defined
+  import_tasks: bash.yml
+
+- when: inputrc is defined
+  become: false
+  template:
+    src: .inputrc.j2
+    dest: "~/.inputrc"
+    mode: "ug=rwX,o="
