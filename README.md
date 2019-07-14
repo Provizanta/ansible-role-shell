@@ -1,4 +1,4 @@
-Ansible role: Shell
+Ansible role: shell
 =========
 
 [![Build Status](https://travis-ci.com/Provizanta/ansible-role-shell.svg?branch=master)](https://travis-ci.com/Provizanta/ansible-role-shell)
