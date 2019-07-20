@@ -14,8 +14,7 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - bionic
-        - cosmic
+        - all
     - name: Debian
       versions:
         - all
@@ -24,11 +23,11 @@ galaxy_info:
         - all
     - name: EL
       versions:
-        - 6
         - 7
 
   galaxy_tags:
     - shell
     - bash
+    - sh
 
 dependencies: []
