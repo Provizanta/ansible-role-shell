@@ -1,12 +1,13 @@
 ---
 
-- when: bash is defined
-  import_tasks: bash.yml
+- when: shell_bash is defined
+  include_tasks: bash.yml
 
 - name: introduce custom inputrc configuration
-  when: inputrc is defined
+  when: shell_inputrc is defined
   become: false
   template:
     src: .inputrc.j2
     dest: "~/.inputrc"
     mode: "ug=rwX,o="
+    follow: true

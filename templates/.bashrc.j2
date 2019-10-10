@@ -11,7 +11,7 @@ esac
 
 
 # Load individual *.bashrc components
-for file in {{ bash['rc_d_dir'] | default('~/.bashrc.d/') }}/*.bashrc;
+for file in {{ shell_bash['rc_d_dir'] | default('{{ ansible_env.HOME }} /.bashrc.d/') }}/*.bashrc;
 do
     source $file
 done

@@ -5,23 +5,42 @@
   roles:
     - role: shell
       vars:
-        bash:
+        shell_use_color: false
+        shell_inputrc:
+          - "set completion-ignore-case On"
+        shell_bash:
           rc_d_dir: "~/.bashrc.d/"
-          alias:
-            ll: 'ls -alF'
           history:
-            control: "ignoreboth"
+            size: 1500
           shopt:
-            cdspell: true
+            histappend: true
           set:
-            pipefail: true
+            history: true
+          alias:
+            mkdir: 'mkdir -p'
+          functions:
+            - |
+              with_trace() {
+                  if [ -n "$1" ] ; then
+                      local original_xtrace_setting
+                      original_xtrace_setting="$(shopt -po xtrace)"
+
+                      set -x
+                      $1
+                      { STATUS=$?; eval "$original_xtrace_setting"; } 2>/dev/null
+
+                      return $STATUS
+                  else
+                      echo "usage: with_trace '<command>'"
+                  fi
+              }
 
   post_tasks:
     - name: bashrc.d directory should be present
       block:
         - name: check file presence
           stat:
-            path: "~/.bashrc.d/"
+            path: "{{ ansible_env.HOME }}/.bashrc.d/"
           register: r
         - name: evaluate file presence
           assert:

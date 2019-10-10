@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # {{ ansible_managed }}
 
-{% for i in inputrc | default([]) %}
+{% for i in shell_inputrc | default([]) %}
 {{ i }}
 {% endfor -%}

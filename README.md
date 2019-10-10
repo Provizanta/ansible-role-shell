@@ -20,12 +20,16 @@ None
 Role Variables
 --------------
 
-    bash:
-      rc_d_dir: <string, path to the rc.d dir>
+These variables are defined in [defaults/main.yml](./defaults/main.yml):
 
-      general:
-        use_color: <boolean, indicating whether to use color output>
-        file_behavior: <'replace' or anything else, replace removes the existing directory containing the configurations, if present>
+    shell_use_color: true
+
+These variables do not have a default value and can be specified:
+
+    shell_inputrc: <list of strings, contains the line content of .shell_inputrc file replacing the system-wide /etc/shell_inputrc>
+
+    shell_bash:
+      rc_d_dir: <string, path to the rc.d dir>
 
       history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
 
@@ -37,7 +41,6 @@ Role Variables
 
       functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
-    inputrc: <list of strings, contains the content of .inputrc file replacing the system-wide /etc/inputrc >
 
 Dependencies
 ------------
@@ -51,12 +54,11 @@ Example Playbook
       roles:
         - role: shell
           vars:
-            inputrc:
+            shell_use_color: no
+            shell_inputrc:
               - "set completion-ignore-case On"
-            bash:
+            shell_bash:
               rc_d_dir: ~/.bashrc.d/
-              general:
-                use_color: no
               history:
                 size: 1500
               shopt:

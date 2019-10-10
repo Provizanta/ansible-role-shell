@@ -1,5 +1,10 @@
 ---
 
+- name: prepare facts
+  set_fact:
+    shell_bash:
+      rc_d_dir: "{{ ('rc_d_dir' in shell_bash) | ternary(shell_bash['rc_d_dir'], ansible_env.HOME + '/.bashrc.d/') }}"
+
 - name: establish depenencies
   become: true
   package:
@@ -12,7 +17,7 @@
 - name: establish rc.d directory
   become: false
   file:
-    path: "{{ bash['rc_d_dir'] | default('~/.bashrc.d/') }}"
+    path: "{{ shell_bash['rc_d_dir'] }}"
     mode: "u=rwx,go="
     state: directory
   tags: configure
@@ -21,17 +26,19 @@
   become: false
   template:
     src: .bashrc.j2
-    dest: ~/.bashrc
+    dest: "{{ ansible_env.HOME }}/.bashrc"
     mode: "u=rwX,go="
+    follow: true
   tags: configure
 
 - name: establish rc.d components
   become: false
   template:
     src: "{{ item }}"
-    dest: "{{ bash['rc_d_dir'] | default('~/.bashrc.d/') }}/\
+    dest: "{{ shell_bash['rc_d_dir'] }}/\
       {{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
     mode: "u=rwX,go="
+    follow: true
   with_fileglob:
     - "{{ role_path }}/templates/bashrc.d/*.bashrc.j2"
     - "{{ role_path }}/templates/rc.d/*.rc.j2"
