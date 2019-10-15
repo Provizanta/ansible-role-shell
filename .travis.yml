@@ -14,7 +14,6 @@ env:
     - MOLECULE_DISTRO: ubuntu/xenial
     - MOLECULE_DISTRO: ubuntu/bionic
     - MOLECULE_DISTRO: ubuntu/cosmic
-    - MOLECULE_DISTRO: ubuntu/disco
     - MOLECULE_DISTRO: centos/7
     - MOLECULE_DISTRO: debian/jessie
     - MOLECULE_DISTRO: debian/buster
