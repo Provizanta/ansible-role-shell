@@ -42,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: to Ansible Galaxy
+        if: github.event_name == 'push'
         uses: robertdebock/galaxy-action@1.0.3
         with:
           galaxy_api_key: ${{ secrets.galaxy_api_key }}
