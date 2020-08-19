@@ -8,7 +8,7 @@
       apt:
         update_cache: true
   roles:
-    - role: shell
+    - role: ansible-role-shell
       vars:
         shell_use_color: false
         shell_inputrc:
