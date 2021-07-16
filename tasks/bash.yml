@@ -2,8 +2,7 @@
 
 - name: prepare facts
   set_fact:
-    shell_bash:
-      rc_d_dir: "{{ ('rc_d_dir' in shell_bash) | ternary(shell_bash['rc_d_dir'], ansible_env.HOME + '/.bashrc.d/') }}"
+    shell_bash: "{{ {'rc_d_dir': (ansible_env.HOME + '/.bashrc.d/') } | combine(shell_bash) }}"
 
 - name: establish depenencies
   become: true
