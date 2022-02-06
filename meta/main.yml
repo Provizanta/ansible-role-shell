@@ -2,6 +2,7 @@
 
 galaxy_info:
   role_name: shell
+  namespace: provizanta
   author: Tibor Csoka
   description: |
     "Establish the desired target shell along with a specified configuration."
