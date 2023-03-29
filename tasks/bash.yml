@@ -5,7 +5,7 @@
     shell_bash: "{{ {'rc_d_dir': (ansible_env.HOME + '/.bashrc.d/') } | combine(shell_bash) }}"
 
 - name: establish depenencies
-  become: true
+  become: "{{ (ansible_system == 'Linux') | bool }}"
   package:
     name:
       - bash
