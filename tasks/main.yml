@@ -6,9 +6,17 @@
 - when: shell_zsh is defined
   include_tasks: zsh.yml
 
-- name: set default shell
+- name: default shell | find path
   when: shell_default is defined
-  command: chsh -s $(which {{ shell_default }})
+  command: which {{ shell_default }}
+  register: _default_shell_path
+  changed_when: false
+
+- name: default shell | set
+  when: shell_default is defined
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ _default_shell_path.stdout }}"
 
 - name: introduce custom inputrc configuration
   when: shell_inputrc is defined

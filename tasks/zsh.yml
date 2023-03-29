@@ -6,10 +6,25 @@
     name:
       - zsh
     state: present
-  tags: install
+
+- name: zsh | oh-my-zsh | pre-requisites
+  when: shell_zsh_oh_my_zsh | bool
+  become: "{{ (ansible_system == 'Linux') | bool }}"
+  package:
+    name:
+      - git
+      - curl
+    state: present
+
+- name: zsh | oh-my-zsh | download
+  when: shell_zsh_oh_my_zsh | bool
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: /tmp/install.sh
+    mode: "u=rwx,go=rx"
 
 - name: zsh | oh-my-zsh | install
   when: shell_zsh_oh_my_zsh | bool
-  command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  command: sh -c /tmp/install.sh
   args:
     creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
