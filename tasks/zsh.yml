@@ -1,0 +1,15 @@
+---
+
+- name: zsh | establish
+  become: "{{ (ansible_system == 'Linux') | bool }}"
+  package:
+    name:
+      - zsh
+    state: present
+  tags: install
+
+- name: zsh | oh-my-zsh | install
+  when: shell_zsh_oh_my_zsh | bool
+  command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    creates: "{{ ansible_env.HOME }}/.oh-my-zsh"

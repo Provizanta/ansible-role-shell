@@ -3,6 +3,13 @@
 - when: shell_bash is defined
   include_tasks: bash.yml
 
+- when: shell_zsh is defined
+  include_tasks: zsh.yml
+
+- name: set default shell
+  when: shell_default is defined
+  command: chsh -s $(which {{ shell_default }})
+
 - name: introduce custom inputrc configuration
   when: shell_inputrc is defined
   become: false
