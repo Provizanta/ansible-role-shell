@@ -41,6 +41,12 @@ These variables do not have a default value and can be specified:
 
       functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
 
+    shell_zsh: {}
+
+    shell_zsh_oh_my_zsh: <bool, whether oh my zsh should be installed>
+
+    shell_default: <string, shell name, e.g. zsh, to be selected as the default shell for the provisioned user>
+
 
 Dependencies
 ------------
@@ -57,6 +63,8 @@ Example Playbook
             shell_use_color: no
             shell_inputrc:
               - "set completion-ignore-case On"
+            shell_zsh: {}
+            shell_zsh_oh_my_zsh: true
             shell_bash:
               rc_d_dir: ~/.bashrc.d/
               history:

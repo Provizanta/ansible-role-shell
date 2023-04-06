@@ -13,6 +13,9 @@
         shell_use_color: false
         shell_inputrc:
           - "set completion-ignore-case On"
+        shell_default: zsh
+        shell_zsh: {}
+        shell_zsh_oh_my_zsh: true
         shell_bash:
           rc_d_dir: "~/.bashrc.d/"
           history:
