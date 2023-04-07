@@ -1,9 +1,0 @@
----
-
-color_enabled_commands:
-  - 'ls'
-  - 'dir'
-  - 'vdir'
-  - 'grep'
-  - 'fgrep'
-  - 'egrep'

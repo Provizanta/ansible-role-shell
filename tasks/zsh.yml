@@ -6,6 +6,7 @@
     name:
       - zsh
     state: present
+  tags: install
 
 - name: zsh | oh-my-zsh | pre-requisites
   when: shell_zsh_oh_my_zsh | bool
@@ -15,6 +16,7 @@
       - git
       - curl
     state: present
+  tags: install
 
 - name: zsh | oh-my-zsh | download
   when: shell_zsh_oh_my_zsh | bool
@@ -22,9 +24,20 @@
     url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
     dest: /tmp/install.sh
     mode: "u=rwx,go=rx"
+  tags: install
 
 - name: zsh | oh-my-zsh | install
   when: shell_zsh_oh_my_zsh | bool
   command: sh -c /tmp/install.sh
   args:
     creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+  tags: install
+
+- name: zsh | .zshrc file
+  become: false
+  when: shell_zsh_rc is defined
+  copy:
+    content: "{{ shell_zsh_rc }}"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    mode: "u=rwx,go="
+  tags: configure

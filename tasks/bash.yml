@@ -1,10 +1,6 @@
 ---
 
-- name: prepare facts
-  set_fact:
-    shell_bash: "{{ {'rc_d_dir': (ansible_env.HOME + '/.bashrc.d/') } | combine(shell_bash) }}"
-
-- name: establish depenencies
+- name: bash | establish
   become: "{{ (ansible_system == 'Linux') | bool }}"
   package:
     name:
@@ -13,32 +9,11 @@
     state: present
   tags: install
 
-- name: establish rc.d directory
+- name: bash | .bashrc file
   become: false
-  file:
-    path: "{{ shell_bash['rc_d_dir'] }}"
-    mode: "u=rwx,go="
-    state: directory
-  tags: configure
-
-- name: establish .bashrc file
-  become: false
-  template:
-    src: .bashrc.j2
+  when: shell_bash_rc is defined
+  copy:
+    content: "{{ shell_bash_rc }}"
     dest: "{{ ansible_env.HOME }}/.bashrc"
-    mode: "u=rwX,go="
-    follow: true
-  tags: configure
-
-- name: establish rc.d components
-  become: false
-  template:
-    src: "{{ item }}"
-    dest: "{{ shell_bash['rc_d_dir'] }}/\
-      {{ (item | regex_replace('\\.j2','') | basename | splitext)[0] }}.bashrc"
-    mode: "u=rwX,go="
-    follow: true
-  with_fileglob:
-    - "{{ role_path }}/templates/bashrc.d/*.bashrc.j2"
-    - "{{ role_path }}/templates/rc.d/*.rc.j2"
+    mode: "u=rwx,go="
   tags: configure
