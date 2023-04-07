@@ -1,3 +1,5 @@
 ---
 
-shell_use_color: true
+shell_bash_install: false
+
+shell_zsh_install: false

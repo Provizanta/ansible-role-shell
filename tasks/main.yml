@@ -1,9 +1,9 @@
 ---
 
-- when: shell_bash is defined
+- when: shell_bash_install
   include_tasks: bash.yml
 
-- when: shell_zsh is defined
+- when: shell_zsh_install
   include_tasks: zsh.yml
 
 - name: default shell | find path

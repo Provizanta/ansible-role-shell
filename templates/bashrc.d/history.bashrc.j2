@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# {{ ansible_managed }}
-
-{% if 'history' in shell_bash %}
-{%   for setting, value in shell_bash['history'].items() %}
-{{ "HIST%s=%s\n" | format(setting | upper, value) }}
-{%-  endfor -%}
-{%- endif -%}

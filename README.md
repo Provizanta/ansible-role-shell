@@ -22,30 +22,21 @@ Role Variables
 
 These variables are defined in [defaults/main.yml](./defaults/main.yml):
 
-    shell_use_color: true
+    shell_bash_install: false
+
+    shell_zsh_intsall: false
 
 These variables do not have a default value and can be specified:
 
-    shell_inputrc: <list of strings, contains the line content of .shell_inputrc file replacing the system-wide /etc/shell_inputrc>
+    shell_inputrc:          <list of strings, contains the line content of .shell_inputrc file replacing the system-wide /etc/shell_inputrc>
 
-    shell_bash:
-      rc_d_dir: <string, path to the rc.d dir>
+    shell_bash_rc:          <string, holding the contents of the .bashrc file>
 
-      history: <settings in uppercase/lowercase format not containing the HIST prefix along with a value>
+    shell_zsh_rc:           <string, the contents of the .zshrc file>
 
-      shopt: <key-value pairs of a shell option and a boolean value indicating the options's desired status - set or unset>
+    shell_zsh_oh_my_zsh:    <bool, whether oh my zsh should be installed>
 
-      set: <key-value pairs of a setting and a boolean value indicating the options's desired status - set or unset>
-
-      alias: <key-value pairs of aliases>
-
-      functions: <list, entire text to be inlined into the 'functions' section of the bashrc.d>
-
-    shell_zsh: {}
-
-    shell_zsh_oh_my_zsh: <bool, whether oh my zsh should be installed>
-
-    shell_default: <string, shell name, e.g. zsh, to be selected as the default shell for the provisioned user>
+    shell_default:          <string, shell name, e.g. zsh, to be selected as the default shell for the provisioned user>
 
 
 Dependencies
@@ -60,37 +51,28 @@ Example Playbook
       roles:
         - role: shell
           vars:
-            shell_use_color: no
             shell_inputrc:
               - "set completion-ignore-case On"
-            shell_zsh: {}
+            shell_default: zsh
+            shell_zsh_install: true
             shell_zsh_oh_my_zsh: true
-            shell_bash:
-              rc_d_dir: ~/.bashrc.d/
-              history:
-                size: 1500
-              shopt:
-                histappend: yes
-              set:
-                history: yes
-              alias:
-                mkdir: 'mkdir -p'
-              functions:
-                - |
-                  with_trace() {
-                      if [ -n "$1" ] ; then
-                          local original_xtrace_setting
-                          original_xtrace_setting="$(shopt -po xtrace)"
+            shell_bash_install: true
+            shell_bash_rc: |
+              #!/usr/bin/env bash
+              with_trace() {
+                  if [ -n "$1" ] ; then
+                      local original_xtrace_setting
+                      original_xtrace_setting="$(shopt -po xtrace)"
 
-                          set -x
-                          $1
-                          { STATUS=$?; eval "$original_xtrace_setting"; } 2>/dev/null
+                      set -x
+                      $1
+                      { STATUS=$?; eval "$original_xtrace_setting"; } 2>/dev/null
 
-                          return $STATUS
-                      else
-                          echo "usage: with_trace '<command>'"
-                      fi
-                  }
+                      return $STATUS
+                  else
+                      echo "usage: with_trace '<command>'"
+                  fi
+              }
 
 License
 -------
